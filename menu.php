@@ -15,7 +15,7 @@
             <a class="nav-link" href="inventario.php">Inventario</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="almacen.php">Almacén</a>
+            <a class="nav-link" href="historial.php">Historial</a>
             </li>
         </ul>
         </div>
