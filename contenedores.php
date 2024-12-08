@@ -170,7 +170,7 @@
                         });
                         if(counterError > 0) return
                         data['contenedores'] = this.contenedores
-                        data['param'] = 'insertarContenedor';
+                        data['param'] = 'contenedores';
                         axios.post(this.baseUrl,data, this.httpConfig)
                         .then(res => {
                             res.data.status == 200 ? alert(res.data.msg) : alert(res.data.error)
