@@ -39,8 +39,8 @@
                     <tbody>
                         <tr v-for="item, index in items" :key="index">
                             <td>{{item.numero_contenedor}}</td>
-                            <td>{{item.tamano}}</td>
-                            <td>{{item.estatus == 1 ? 'Dentro': 'Fuera'}} del almacen</td>
+                            <td>{{item.tamano == 1 ? '20HC' : '40HC'}}</td>
+                            <td>{{item.flujo == 1 ? 'Dentro': 'Fuera'}} del almacen</td>
                             <td>
                                 <button class="btn btn-primary">Editar</button>
                                 <button class="btn btn-danger">Eliminar</button>
