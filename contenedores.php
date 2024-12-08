@@ -128,7 +128,6 @@
                 },
                 totalContenedores: 0,
                 data:{
-                    fecha_hora:'',
                     numero_economico:'',
                     placas_unidad:'',
                     nombre_conductor:'',
@@ -174,6 +173,11 @@
                         axios.post(this.baseUrl,data, this.httpConfig)
                         .then(res => {
                             res.data.status == 200 ? alert(res.data.msg) : alert(res.data.error)
+                            this.initializeContenedores()
+                            this.data.numero_economico = '';
+                            this.data.placas_unidad = '';
+                            this.data.nombre_conductor = ''
+                            this.flujo = 1
                         })
                         .catch(this.handleError);
                     }else{
