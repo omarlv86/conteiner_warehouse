@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventario</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -17,12 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="text-center my-4">Inventario</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <button class="btn btn-primary">Nuevo registro</button>
+                    <h4 class="text-center my-4">Inventario de contenedores</h4>
                 </div>
             </div>
             <div class="row">
@@ -32,19 +27,14 @@
                         <tr>
                             <th>Numero de contenedor</th>
                             <th>Tamaño</th>
-                            <th>Estatus</th>
-                            <th></th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item, index in items" :key="index">
                             <td>{{item.numero_contenedor}}</td>
-                            <td>{{item.tamano == 1 ? '20HC' : '40HC'}}</td>
-                            <td>{{item.flujo == 1 ? 'Dentro': 'Fuera'}} del almacen</td>
-                            <td>
-                                <button class="btn btn-primary">Editar</button>
-                                <button class="btn btn-danger">Eliminar</button>
-                            </td>
+                            <td>{{item.tamano}}</td>
+                            <td>{{item.estado}}</td>
                         </tr>
                         
                     </tbody>

@@ -23,17 +23,64 @@ try {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
                     if($_POST['param'] == 'getInventario'){
-                        $sql = "SELECT id, numero_contenedor, tamano, flujo, activo FROM contenedor";
+                        $sql = "SELECT 
+                                    c.numero,
+                                    c.tamano,
+                                    m.tipo_movimiento AS ultimo_estado
+                                FROM 
+                                    contenedor c
+                                JOIN 
+                                    (SELECT 
+                                        id_contenedor, 
+                                        tipo_movimiento, 
+                                        ROW_NUMBER() OVER (PARTITION BY id_contenedor ORDER BY fecha_movimiento DESC) AS rn
+                                    FROM 
+                                        movimiento) m ON c.idcontenedor = m.id_contenedor
+                                        
+                                WHERE 
+                                    m.rn = 1";
                         $result = $conn->query($sql);
                         $array_containers = [];
                         if ($result->num_rows > 0) {
                             while ($item = mysqli_fetch_array($result)) {
                                 array_push($array_containers, [
-                                    'id' => $item['id'],
-                                    'numero_contenedor' => $item['numero_contenedor'],
+                                    'numero_contenedor' => $item['numero'],
                                     'tamano' => $item['tamano'],
-                                    'flujo' => $item['flujo'],
-                                    'activo' => $item['activo']
+                                    'estado' => $item['ultimo_estado'],
+                                ]); 
+                
+                            }
+                        }
+                        $conn->close();
+                        return jsonResponse(['status' =>  200, 'data' => $array_containers, 'msg' => 'Obteniendo inventario']);
+                    }
+                    if($_POST['param'] == 'getHistorial'){
+                        $sql = "SELECT 
+                                    nombre_conductor,
+                                    numero_economico,
+                                    numero,
+                                    tamano,
+                                    tipo_movimiento,
+                                    fecha_movimiento
+                                FROM 
+                                    movimiento m
+                                JOIN 
+                                    camion ca ON m.id_camion = ca.idcamion
+                                JOIN 
+                                    contenedor c ON m.id_contenedor = c.idcontenedor
+                                ORDER BY 
+                                    m.fecha_movimiento DESC;";
+                        $result = $conn->query($sql);
+                        $array_containers = [];
+                        if ($result->num_rows > 0) {
+                            while ($item = mysqli_fetch_array($result)) {
+                                array_push($array_containers, [
+                                    'conductor' => $item['nombre_conductor'],
+                                    'numero_economico' => $item['numero_economico'],
+                                    'numero' => $item['numero'],
+                                    'tamano' => $item['tamano'],
+                                    'movimiento' => $item['tipo_movimiento'],
+                                    'fecha_movimiento' => $item['fecha_movimiento']
                                 ]); 
                 
                             }
